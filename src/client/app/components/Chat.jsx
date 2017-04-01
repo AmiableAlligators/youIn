@@ -13,8 +13,8 @@ export default class Chat extends React.Component {
     super(props);
 
     this.state = {
-      ownerEvents: [],
-      friendEvents: [],
+      ownerEvents: props.allState.ownerEvents,
+      friendEvents: props.allState.friendEvents,
       currentEvent: props.ownerEvents[0],
       currentAttendees: '',
       messages: [],
@@ -28,6 +28,7 @@ export default class Chat extends React.Component {
     this.handleDeclineEvent = this.handleDeclineEvent.bind(this);
     this.handleAcceptEvent = this.handleAcceptEvent.bind(this);
     this.renderNewMessage = this.renderNewMessage.bind(this);
+    this.renderNewEvent = this.renderNewEvent.bind(this);
   }
 
   componentDidMount() {
@@ -47,13 +48,56 @@ export default class Chat extends React.Component {
     })
     socket.on('new-message', function(data) {
       console.log('Sockets: Received new message: ', data);
-    })
+      var ownerArray = this.state.ownerEvents;
+      ownerArray.forEach(event => {
+        if (data.event_id === event.event_id) {
+          if (!event.unread_messages) {
+            event.unread_messages = [];
+          } 
+          event.unread_messages.push(data);
+        } else {
+          if (!event.unread_messages) {
+            event.unread_messages = [];
+          }
+        }
+      });
+      this.setState({
+        ownerEvents: ownerArray
+      })
+      var friendArray = this.state.friendEvents;
+      friendArray.forEach(event => {
+        if (data.event_id === event.event_id) {
+          if (!event.unread_messages) {
+            event.unread_messages = [];
+          } 
+          event.unread_messages.push(data);
+        } else {
+          if (!event.unread_messages) {
+            event.unread_messages = [];
+          }
+        }
+      });
+      this.setState({
+        friendEvents: friendArray
+      })
+    }.bind(this))
     socket.on('new-room', function(data) {
       console.log('Sockets: A new event room was created: ', data);
-    })
+      data.users.map(user => {
+        if (user === this.props.currentUser) {
+          this.renderNewEvent(data.event)
+        }
+      })
+    }.bind(this))
     this.setState({
       socket: socket
     });
+  }
+
+  renderNewEvent(event) {
+    this.setState({
+      friendEvents: this.state.friendEvents.push(event)
+    })
   }
 
   renderNewMessage(message) {
@@ -123,6 +167,9 @@ export default class Chat extends React.Component {
       currentEvent: event,
       currentAttendees: event.attendees
     })
+    if (this.state.currentEvent.unread_messages) {
+      this.state.currentEvent.unread_messages.splice(0);
+    }
   }
 
   render() {
