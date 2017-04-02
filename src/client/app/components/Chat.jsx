@@ -74,7 +74,6 @@ export default class Chat extends React.Component {
       });
       this.setState({
         ownerEvents: ownerArray,
-        currentEvent: ownerArray[0]
       })
       var friendArray = this.state.friendEvents;
       friendArray.forEach(event => {
@@ -122,7 +121,8 @@ export default class Chat extends React.Component {
       }
     })
     this.setState({
-      ownerEvents: newOwnerEvents
+      ownerEvents: newOwnerEvents,
+      currentEvent: newOwnerEvents[0]
     })
   }
 
