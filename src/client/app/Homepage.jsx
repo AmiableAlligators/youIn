@@ -47,29 +47,45 @@ class Homepage extends React.Component {
     return (
       <div>
         <div className="container">
-        <Link to="/chat">Chat</Link>
           <div className="page-header">
-           <h2 id='userName'>uhjuhhu <span id="headerName">{this.props.userName}</span></h2>
-            <LogoutButton />
+            <div className="ui horizontal list">
+              <div className="item">
+                <div className="content">
+                  <div className="header">
+                    <h2 id='userName'>Hello <span id="headerName">{this.props.userName}</span></h2>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <div className="content">
+                  <div className="header">
+                    <Link to="/chat"><button className="ui primary button">Enter Event Chat</button></Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <div className="content">
+                  <div className="header">
+                    <LogoutButton />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <CreateEventButton
-          addNewTolist= { this.props.addNewTolist }
-          history={this.props.history}
-          friends={this.props.friends}
-          getEvents={this.props.getEvents}/>
-          <br /><br />
+  
           <div className='container events'>
             <br></br><br></br>
-            <h2 id="my-events-title" className='header-inner'> My Events</h2>
+            <h2>My Events</h2>
             <OwnerEventList
-            ownerEventsArr={this.props.ownerEvents}
-            accessToken={this.props.accessToken}
-            getEvents={this.props.getEvents}
-            history={this.props.history}/>
+              ownerEventsArr={this.props.ownerEvents}
+              accessToken={this.props.accessToken}
+              getEvents={this.props.getEvents}
+              history={this.props.history}/>
           </div>
-            <br /><br />
           <div className='container events'>
-            <h2 id="friend-events-title"className='header-inner'> Friend Events</h2>
+            <h2>Friend Events</h2>
             <FriendEventList accessToken={this.props.accessToken}
             friendEventsArr={this.props.friendEvents}
             getEvents={this.props.getEvents}/>

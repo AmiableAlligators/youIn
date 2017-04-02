@@ -5,7 +5,6 @@ import FriendEvents from './FriendEvents.jsx';
 const Sidebar = (props) => (
   <div style={{width: '220px', height: '100%', borderRight: '1px solid #ccc'}}>
 	  <h2 className="ui header logo">
-		  <i className="settings icon"></i>
 		  <div className="content">
 		  	You In?
 		  </div>
