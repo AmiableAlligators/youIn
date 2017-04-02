@@ -29,6 +29,11 @@
   padding: 25px;
 }
 
+.selected {
+  background-color: #438CFF;
+  cursor: pointer;
+}
+
 /*
 .page-header {
   background: url(./media_lib/youInLogo.png) 50% 50% no-repeat;
@@ -125,10 +130,6 @@ p, li {
 
 .panel {
   background: none;
-}
-
-.selected {
-  background-color: #438CFF;
 }
 
 /* this all deals with the facebook login button and the formatting for the div containing the

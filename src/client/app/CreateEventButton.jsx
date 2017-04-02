@@ -229,6 +229,7 @@ class CreateEventButton extends React.Component {
 
               <div className="col-md-4">
                 <h4 className='create'>Invite from Friends List</h4>
+                <ul className="ui list">
                 {
                   this.props.friends &&
                   this.props.friends.map( (friend, i) => (
@@ -240,6 +241,7 @@ class CreateEventButton extends React.Component {
                     )
                   )
                 }
+                </ul>
               </div>
 
               <div className="col-md-12">
