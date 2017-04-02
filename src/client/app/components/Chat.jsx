@@ -15,7 +15,7 @@ export default class Chat extends React.Component {
     this.state = {
       ownerEvents: props.allState.ownerEvents,
       friendEvents: props.allState.friendEvents,
-      currentEvent: props.ownerEvents[0],
+      currentEvent: props.ownerEvents[0] || props.friendEvents[0] || null,
       currentAttendees: '',
       messages: [],
       isGoing: '',
@@ -229,6 +229,7 @@ export default class Chat extends React.Component {
         </div>
         <div className="pushable">
           <EventShow
+            userName={ this.props.userName }
             friends={ this.props.friends }
             currentAttendees={ this.state.currentAttendees }
             event={ this.state.currentEvent }

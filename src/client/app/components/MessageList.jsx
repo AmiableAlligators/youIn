@@ -21,9 +21,17 @@ export default class MessageList extends React.Component {
 
   render() {
     return (
-      <div className="ui items" style={{position: 'fixed', bottom: '40px', overflowX: 'hidden', overflowY: 'scroll', height: '300px', width: '100%'}}
+      <div className="ui items" 
+        style={{position: 'fixed', bottom: '40px',  height: '400px', overflowX: 'hidden', overflowY: 'scroll', width: '100%', zIndex: '-99'}}
         ref={input => { this.messageList = input}}>
         {
+          this.props.messages.length === 0 &&
+          <div className="ui raised segment" style={{position: 'absolute', bottom: '0'}}>
+            <p>This event currently has no messages.</p>
+          </div>
+        }
+        {
+          this.props.messages.length > 0 &&
           this.props.messages.map( ( message, index ) => (
             <MessageListEntry
               key={ index }

@@ -7,7 +7,7 @@ const FriendEvents = (props) => (
         Friend Events
       </div>
       {
-        !props.friendsEvents &&
+        !props.friendsEvents || props.friendsEventslength === 0 &&
         <p style={{padding: '5px 20px'}}>You currently have no events from friends.</p>
       }
       <div className="ui link list">  

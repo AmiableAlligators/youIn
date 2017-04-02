@@ -2,13 +2,13 @@ import React from 'react';
 import ShortInfo from './ShortInfo.jsx';
 import AttendingList from './AttendingList.jsx';
 import MessageInputBox from './MessageInputBox.jsx';
-import Chatbox from './Chatbox.jsx';
 import CreateEventButton from '../CreateEventButton.jsx';
 
 const EventShow = (props) => (
   <div className='event-show'>
     <CreateEventButton
-      addNewTolist= { props.addNewTolist }
+      currentUser={ props.currentUser }
+      addNewTolist={ props.addNewTolist }
       friends={ props.friends }
       getEvents={ props.getEvents }
       history={ props.history }
@@ -23,7 +23,6 @@ const EventShow = (props) => (
     }
     {
       props.event &&
-      <div className="ui horizontal divider">Event Chat</div> &&
       <ShortInfo
         currentUser={ props.currentUser }
         event={ props.event }
@@ -36,15 +35,11 @@ const EventShow = (props) => (
         buttonAccept={ props.buttonAccept }
         buttonDecline={ props.buttonDecline }
         deleteEvent = { props.deleteEvent }
-      /> &&
-      <Chatbox
         userName={ props.userName }
-        currentUser={ props.currentUser }
         messages={ props.messages }
         renderNewMessage={ props.renderNewMessage }
-        currentEvent={ props.currentEvent }
         socket={ props.socket }
-      />
+      /> 
     }
   </div>
 );

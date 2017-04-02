@@ -59,31 +59,42 @@ class InviteNewFriend extends React.Component {
 
   render() {
     return (
-      <div className="col-md-12">
-        <label>Friend Name</label>
-        <input
-          value={ this.state.friendName }
-          type="text"
-          onChange={ this.updateName }
-        />
-        <label>Friend Email</label>
-          <input
-            value={ this.state.email}
-            type="text"
-            onChange={ this.updateEmail }
-          />
-        <button
-          type="button"
-          onClick={ this.inviteNewFriend }>Invite Friend</button>
-
-        {
-          this.state.newFriends.map( (friend, i) => (
-            <NewFriendEntry
-              key={ i }
-              friend={ friend }
+      <div>
+        <div className="two fields equal width">
+          <div className="field">
+            <input
+              placeholder="Name..."
+              value={ this.state.friendName }
+              type="text"
+              onChange={ this.updateName }
             />
-          ))
-        }
+          </div>
+          <div className="field">
+            <input
+              placeholder="Email..."
+              value={ this.state.email}
+              type="text"
+              onChange={ this.updateEmail }
+            />
+          </div>
+
+          <button
+            className="ui button icon mini"
+            type="button"
+            onClick={ this.inviteNewFriend }>
+            <i className="plus icon"></i>
+          </button>
+        </div>
+        <div>
+          {
+            this.state.newFriends.map( (friend, i) => (
+              <NewFriendEntry
+                key={ i }
+                friend={ friend }
+              />
+            ))
+          }
+        </div>
       </div>
     );
   }
