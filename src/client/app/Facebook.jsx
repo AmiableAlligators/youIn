@@ -51,6 +51,20 @@ class Facebook extends React.Component {
       this.props.getFriends(response.authResponse.userID);
       this.props.getEvents(this.props.history, function(result) {
         console.log('results of fetching events', result);
+        if (result.friendEvents.length > 0) {
+          var friendEventsWithAttending = result.friendEvents.map(event => {
+            var isAttending = event.attendees.filter(attend => (
+              response.authResponse.userID === attend.user_id
+            ))
+            if (isAttending.length > 0) {
+              event.isAttending = true;
+              return event;
+            } else {
+              event.isAttending = '';
+              return event;
+            }
+          })
+        }
         this.setState({
           ownerEvents: result.ownerEvents,
           friendEvents: result.friendEvents

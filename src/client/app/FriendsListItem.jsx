@@ -18,11 +18,10 @@ class FriendsListItem extends React.Component {
 
   render() {
     return (
-      <h5 
-        className={this.state.isSelected ? "selected" : null}
+      <li className={this.state.isSelected ? "selected" : null}
         onClick={this.handleClick.bind(this)}>
-
-        {this.props.friend.firstname}</h5>
+        {this.props.friend.firstname}
+      </li>
     )
   }
 }

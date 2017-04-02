@@ -96,7 +96,6 @@ app.get('/messages', function(req, res) {
 });
 
 app.post('/messages', function(req, res) {
-  console.log(req.body);
   Message.write(req.body)
     .then(function(result) {
       console.log('Add: ', result);

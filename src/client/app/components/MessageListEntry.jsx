@@ -4,12 +4,12 @@ import tz from 'moment-timezone';
 
 const MessageListEntry = (props) => {
   let name = props.message.firstname + ' ' + props.message.lastname;
-  let ago = moment().tz('America/Los_Angeles').fromNow();
+  let ago = moment(props.message.created).fromNow();
 
   return (
     <div className="item">
       <div className="content">
-        <a className="header">{ name }</a>
+        <a className="header">{ props.message.user_name || name }</a>
         <div className="meta">
           { ago }
         </div>

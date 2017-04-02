@@ -4,6 +4,7 @@ import FriendsListItem from './FriendsListItem.jsx';
 import InviteNewFriend from './components/InviteNewFriend.jsx';
 import Modal from 'boron/DropModal';
 import $ from 'jquery';
+import Moment from 'moment';
 
 class CreateEventButton extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class CreateEventButton extends React.Component {
       friends:[],
       title: '',
       where: '',
-      date: '',
+      date: Moment().format('YYYY-DD-MM'),
       time: '12:00:00',
       invitees: {},
       invitNew: false,
@@ -24,7 +25,7 @@ class CreateEventButton extends React.Component {
     this.inviteFriend = this.inviteFriend.bind(this);
     this.addToUsers_Events = this.addToUsers_Events.bind(this);
     this.handleInviteNewEvent = this.handleInviteNewEvent.bind(this);
-
+    this.hideModal = this.hideModal.bind(this);
   }
 
   handleInviteNewEvent() {
@@ -127,7 +128,7 @@ class CreateEventButton extends React.Component {
     let context = this;
     event.preventDefault();
     let eventData = {
-      owner: '1',//this is hardcoded - we need to have the owner come from who is logged in.
+      owner: this.props.currentUser,
       title: this.state.title,
       description: this.state.description,
       location: this.state.where,
@@ -160,92 +161,97 @@ class CreateEventButton extends React.Component {
         </div>
 
         <Modal ref="modal"
-          modalStyle={{width: '80%'}}>
+          modalStyle={{width: '90%', maxHeight: '80%'}}>
           <div className="container-fluid">
-            <form className="ui form"
+            <form className="ui form" style={{paddingTop: '25px', paddingBottom: '50px'}}
               onSubmit={this.handleSubmit.bind(this)}>
-              <div className="row">
-                <div className="ui large header">
-                  Create a New Event
-                </div>
+              
+              <div className="ui large header">
+                Create a New Event
               </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="inline fields">
-                    <div className="sixteen wide field">
-                      <label>Event Name</label>
-                      <input
-                        value={this.state.title}
-                        type="text"
-                        onChange={this.handleChange.bind(this, 'title')} required
-                        />
-                    </div>
-                  </div>
-                  <h4 className='create'>Where</h4>
+            
+              <div className="inline fields">
+                <div className="field">
+                  <label>Event Name</label>
+                  <input
+                    value={this.state.title}
+                    type="text"
+                    onChange={this.handleChange.bind(this, 'title')} required
+                    />
+                </div>
+                <div className="field">
+                  <label>Where</label>
                   <input
                     value={this.state.where}
                     onChange={this.handleChange.bind(this, 'where')}
                     type="text" required
                     />
-                  <h4 className='create'>When</h4>
+                </div>
+              </div>
+
+              <div className="inline fields">
+                <div className="field">
+                  <label>When</label>
                   <input
                     value={this.state.date}
                     onChange={this.handleChange.bind(this, 'date')}
                     type="date" required
                     />
+                </div>
+                <div className="field">
                   <input
                     value={this.state.time}
                     onChange={this.handleChange.bind(this, 'time')}
                     type="time" required
                     />
                 </div>
-
-
               </div>
-
-
-              <div className="col-md-12">
-                <h4 className='create'>Description </h4>
-              </div>
-
-
-              <div className="col-md-12">
+              <div className="field">
+                <label>Description (optional)</label>
                 <input
-                value={this.state.description}
-                onChange={this.handleChange.bind(this, 'description')}
-                type="text" required/>
+                  value={this.state.description}
+                  onChange={this.handleChange.bind(this, 'description')}
+                  type="text" 
+                  />
               </div>
 
-              <div
-                onClick={ this.handleInviteNewEvent }
-              >
-                <h4 className='create'>Click Here to Invite New Friend...</h4>
+              <div className="fields">
+                <div className="field">
+                  <h4>Invite from Friends List</h4>
+                  <ul className="ui list" style={{maxHeight: '150px', overflowY: 'scroll', width: '150px'}}>
+                  {
+                    this.props.friends &&
+                    this.props.friends.map( (friend, i) => {
+                      return friend.user_id !== this.props.currentUser ?
+                        (<FriendsListItem
+                          key={i}
+                          friend={friend}
+                          inviteFriend={this.inviteFriend(friend)}
+                          />) : ''
+                    })
+                  }
+                  </ul>
+                </div>
+
+                <div className="field">
+                  <div onClick={ this.handleInviteNewEvent }>
+                    <h4 className='create'>or Invite New Friends</h4>
+                  </div>
+
+                  {
+                    <InviteNewFriend addNewTolist={ this.props.addNewTolist }/>
+                  }
+                </div>
               </div>
-
-              {
-                this.state.invitNew &&
-                <InviteNewFriend addNewTolist={ this.props.addNewTolist }/>
-              }
-
-              <div className="col-md-4">
-                <h4 className='create'>Invite from Friends List</h4>
-                {
-                  this.props.friends &&
-                  this.props.friends.map( (friend, i) => (
-                    <FriendsListItem
-                      key={i}
-                      friend={friend}
-                      inviteFriend={this.inviteFriend(friend)}
-                      />
-                    )
-                  )
-                }
+              
+              <div className="ui large buttons right floated">
+                <button className="ui button"
+                  onClick={ this.hideModal }>
+                  cancel</button>
+                <div className="or"></div>
+                <button type="submit"
+                  className="ui primary button">Create and Invite Friends</button>
               </div>
-
-              <div className="col-md-12">
-                <button type="submit">Submit</button>
-              </div>
-
             </form>
           </div>
         </Modal>

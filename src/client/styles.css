@@ -25,8 +25,13 @@
 }
 
 .pushable {
-  margin-left: 195px;
+  margin-left: 220px;
   padding: 25px;
+}
+
+.selected {
+  background-color: #438CFF;
+  cursor: pointer;
 }
 
 /*
@@ -125,10 +130,6 @@ p, li {
 
 .panel {
   background: none;
-}
-
-.selected {
-  background-color: #438CFF;
 }
 
 /* this all deals with the facebook login button and the formatting for the div containing the
