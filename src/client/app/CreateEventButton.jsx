@@ -128,7 +128,7 @@ class CreateEventButton extends React.Component {
     let context = this;
     event.preventDefault();
     let eventData = {
-      owner: '1',//this is hardcoded - we need to have the owner come from who is logged in.
+      owner: this.props.currentUser,
       title: this.state.title,
       description: this.state.description,
       location: this.state.where,
