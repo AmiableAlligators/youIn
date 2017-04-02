@@ -54,6 +54,8 @@ module.exports = {
 					    	.then(function (result) {
 					    // sends a response of new-message event to all people in the event room.
 					    		result['user_name'] = userObj.firstname + ' ' + userObj.lastname;
+					    		result['firstname'] = userObj.firstname;
+					    		result['lastname'] = userObj.lastname;
 						      io.to(`room:${room}`)
 						      .emit('new-message', result);
 						    })
