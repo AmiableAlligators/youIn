@@ -38,7 +38,6 @@ class CreateEventButton extends React.Component {
     this.setState({friends: this.props.friends})
   }
 
-
   showModal () {
     this.refs.modal.show();
   }

@@ -108,6 +108,11 @@ export default class Chat extends React.Component {
       
     }.bind(this))
 
+    socket.on('delete-room', function(data) {
+      console.log('Sockets: An event room was deleted', data);
+      this.deleteFriendEvent(data.event.event_id);
+    }.bind(this))
+
     socket.on('errors', function(data) {
       console.log('Sockets: An error occured: ', data);
     })
@@ -126,6 +131,20 @@ export default class Chat extends React.Component {
     this.setState({
       ownerEvents: newOwnerEvents,
       currentEvent: newOwnerEvents[0]
+    })
+  }
+  deleteFriendEvent(eventId) {
+    console.log('friend event', eventId)
+    var newFriendEvents = this.state.friendEvents;
+    this.state.friendEvents.forEach(event => {
+      console.log('in loop', event);
+      if (eventId === event.event_id) {
+        console.log('event deleted');
+        newFriendEvents.splice(newFriendEvents.indexOf(event),1);
+      }
+    })
+    this.setState({
+      friendEvents: newFriendEvents
     })
   }
 
