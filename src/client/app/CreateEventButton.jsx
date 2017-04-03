@@ -59,7 +59,6 @@ class CreateEventButton extends React.Component {
 
   inviteFriend(friend) {
     let it = friend.user_id;
-    console.log(friend.user_id, 'rawwr')
     if (this.state.clicked[it]) {
       return () => {
 
