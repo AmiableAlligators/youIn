@@ -93,17 +93,19 @@ export default class Chat extends React.Component {
         friendEvents: friendArray
       })
     }.bind(this))
+
     socket.on('new-room', function(data) {
-      console.log('Sockets: A new event room was created: ', data);
+      console.log('Sockets: A new event room was created: ', data, this.props.currenUser);
       data.users.map(user => {
         if (user === this.props.currentUser) {
           this.renderFriendEvent(data.event)
         }
       })
-
-      if (data.event.owner === this.props.currentUser) {
-        this.renderOwnerEvent(data.event)
-      }
+      
+        if (data.event.owner === this.props.currentUser) {
+          this.renderOwnerEvent(data.event)
+        }
+      
     }.bind(this))
 
     socket.on('errors', function(data) {
@@ -137,7 +139,7 @@ export default class Chat extends React.Component {
 
   renderFriendEvent(event) {
     this.state.friendEvents.push(event);
-    var newEvents = this.state.ownerEvents;
+    var newEvents = this.state.friendEvents;
     this.setState({
       friendEvents: newEvents
     })
