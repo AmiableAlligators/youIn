@@ -7,6 +7,7 @@ import Chatbox from './Chatbox.jsx';
 import MessageInputBox from './MessageInputBox.jsx';
 import data from './../../../../server/data.js';
 import io from 'socket.io-client';
+import Moment from 'moment';
 
 export default class Chat extends React.Component {
   constructor(props) {

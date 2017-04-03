@@ -4,7 +4,7 @@ import tz from 'moment-timezone';
 
 const MessageListEntry = (props) => {
   let name = props.message.firstname + ' ' + props.message.lastname;
-  let ago = moment(props.message.created).fromNow();
+  let ago = moment.utc(props.message.created).fromNow();
 
   return (
     <div className="item">
