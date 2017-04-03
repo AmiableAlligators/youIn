@@ -59,6 +59,7 @@ class CreateEventButton extends React.Component {
 
   inviteFriend(friend) {
     let it = friend.user_id;
+    console.log(friend.user_id, 'rawwr')
     if (this.state.clicked[it]) {
       return () => {
 
@@ -143,7 +144,7 @@ class CreateEventButton extends React.Component {
       success: function(data) {
         console.log('data from ajax in CreateEventButton', data.event_id);
         context.addToUsers_Events(data.event_id);
-        context.setState({title: '', where: '', date: '', description: ''})
+        context.setState({title: '', where: '', description: '', clicked: {}, invitees: {}})
       },
       error: function(err) {
         console.log('ajax', context);
