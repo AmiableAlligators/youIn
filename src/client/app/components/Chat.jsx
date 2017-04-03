@@ -134,12 +134,12 @@ export default class Chat extends React.Component {
     })
   }
   deleteFriendEvent(eventId) {
-    console.log('friend event', eventId)
+    
     var newFriendEvents = this.state.friendEvents;
     this.state.friendEvents.forEach(event => {
-      console.log('in loop', event);
+    
       if (eventId === event.event_id) {
-        console.log('event deleted');
+    
         newFriendEvents.splice(newFriendEvents.indexOf(event),1);
       }
     })
